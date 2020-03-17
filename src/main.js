@@ -15,3 +15,5 @@ var vm = new Vue({
     render:c=>c(app)
 
 })
+
+console.log('dd')
