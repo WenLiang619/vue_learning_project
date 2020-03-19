@@ -35,7 +35,19 @@ module.exports = {
             {test: /\.css$/, use: ['style-loader', 'css-loader']},//配置处理.css文件的第三方loader规则
             {test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader']},//配置处理.less文件的第三方loader规则
             {test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']},//配置处理.sass文件的第三方loader规则
-            {test: /\.(jpg|png|gif|bmp|jpeg)$/, use: ['url-loader?limit=1475&name=[hash:8]-[name].[ext]']},//配置处理图片路径的第三方loader规则
+            {
+                test: /\.(png|jpg|gif|jpeg)$/,
+                use: [{
+                    loader: 'url-loader',
+                    // loader: 'file-loader',
+                    options: {
+                        esModule: false, // 这里设置为false
+                        name: '[name].[ext]',
+                        limit: 10240
+                    }
+                }]
+            },
+            // {test: /\.(jpg|png|gif|bmp|jpeg)$/, use: ['url-loader?limit=1475&name=[hash:8]-[name].[ext]']},//配置处理图片路径的第三方loader规则
             // limit给定的值是图片的大小，单位byte 如果我们引用的图片大小大于给定的limit值，则不会被转为base64格式的字符串；
             // 如果图片小于等于给定的limit值，则会被转为base64的字符串
             {test: /\.(ttf|eot|svg|woff|woff2|otf)$/, use: 'url-loader'},//处理 字体文件的loader
